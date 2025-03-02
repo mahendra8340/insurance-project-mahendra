@@ -11,8 +11,17 @@
   - name: start docker service
     command: sudo systemctl start docker
 
-  - name: Cleanup old docker
-    command: sudo docker ps -q -f name=insure-me
+  - name: Stop the Docker container if running
+    community.docker.docker_container:
+      name: insure-me
+      state: stopped
+    ignore_errors: true  # Ignore errors if the container is already stopped
+
+  - name: Remove the Docker container named "insure-me"
+    community.docker.docker_container:
+      name: insure-me
+      state: absent
+    ignore_errors: true  # Ignore errors if the container doesn't exist
 
   - name: deploy insureme application
     command: sudo docker run -itd -p 8081:8081 --name insure-me  mahendra834/insure-me:1.0
