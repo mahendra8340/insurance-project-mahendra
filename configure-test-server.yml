@@ -10,15 +10,15 @@
       command: sudo systemctl start docker
     - name: Stop the Docker container if running
       community.docker.docker_container:
-      name: insure-me
-      state: stopped
-      ignore_errors: true
+       name: insure-me
+       state: stopped
+       ignore_errors: true
     - name: Remove the Docker container named "insure-me"
       community.docker.docker_container:
-      name: insure-me
-      state: absent
-      ignore_errors: true
-    - name: deploy insureme application
+       name: insure-me
+       state: absent
+       ignore_errors: true
+    - name: deploy insure-me application
       command: sudo docker run -itd -p 8081:8081 --name
         insure-me  mahendra834/insure-me:1.0
 
